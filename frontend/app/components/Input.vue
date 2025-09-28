@@ -37,7 +37,7 @@ const isActive = computed(() => {
             <label for="ipt" class="absolute left-2 text-gray-400 cursor-text">
                 <span v-for="(char, index) in chars" :key="index"
                     :class="isActive ? 'text-[#ADFF2F] -translate-y-[21px] scale-90' : ''"
-                    class="inline-block transition-all duration-300 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)]"
+                    class="inline-block select-none transition-all duration-300 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)]"
                     :style="`transition-delay: ${(index + 1) * 50}ms`">
                     {{ char }}
                 </span>
