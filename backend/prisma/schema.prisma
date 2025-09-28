@@ -7,3 +7,21 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+
+model Users {
+  id       BigInt @id @default(autoincrement())
+  name     String @unique
+  email    String @unique
+  password String @unique
+
+  links Links[]
+}
+
+model Links {
+  id          BigInt @id @default(autoincrement())
+  origin_lInk String
+  short_link  String
+
+  host   Users  @relation(fields: [hostId], references: [id])
+  hostId BigInt
+}
