@@ -6,8 +6,9 @@ import ScaleProgressBar from './ScaleProgressBar.vue'
 interface Props {
     iptName: string
     iptLabel: string
+    iptWidth?: string
 }
-const { iptName = 'ipt6', iptLabel = 'Name' } = defineProps<Props>()
+const { iptName = 'ipt', iptLabel = 'Name', iptWidth = 'w-46' } = defineProps<Props>()
 const iptValue = defineModel<string>('iptValue')
 const isFocused = ref(false)
 
@@ -31,7 +32,7 @@ const isActive = computed(() => {
 </script>
 
 <template>
-        <div>
+    <div>
         <div class="relative inline-block">
             <label for="ipt" class="absolute left-2 text-gray-400 cursor-text">
                 <span v-for="(char, index) in chars" :key="index"
@@ -42,8 +43,8 @@ const isActive = computed(() => {
                 </span>
             </label>
             <input type="text" id="ipt" :name="iptName" @focus="handleFocused" @blur="handleBlur" v-model="iptValue"
-                class="outline-none bg-transparent w-44 pl-2 border-b-[1px] border-gray-400">
-            <ScaleProgressBar prg-bgi="background-color: #ADFF2F;" :prg-scale="iptPrgBarSCale" prg-width="w-44" />
+                class="outline-none bg-transparent pl-2 border-b-[1px] border-gray-400" :class="iptWidth">
+            <ScaleProgressBar prg-bgi="background-color: #ADFF2F;" :prg-scale="iptPrgBarSCale" :prg-width="iptWidth" />
         </div>
     </div>
 </template>
