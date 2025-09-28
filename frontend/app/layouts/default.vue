@@ -4,7 +4,7 @@
 </script>
 
 <template>
-    <main class="w-screen h-screen inline-flex justify-center items-center">
+    <main class="bg-[#212121] w-screen h-screen inline-flex justify-center items-center">
         <NuxtPage />
     </main>
 </template>
