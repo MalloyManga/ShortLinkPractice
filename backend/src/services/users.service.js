@@ -1,5 +1,5 @@
 // users.service.js
-import client from "../prisma/prismaClient.js";
+import client from "../prisma/prismaClient.js"
 import bcrypt from 'bcrypt'
 
 const saltRounds = 10
