@@ -14,3 +14,21 @@ export async function userCreate(name, email, password) {
         }
     })
 }
+
+/**
+ * @param {string} emailOrName 
+ * @param {string} password 
+ */
+export async function userLogin(emailOrName, password) {
+    const user = await client.users.findFirst({
+        where: {
+            OR: [
+                { email: emailOrName },
+                { name: emailOrName }
+            ]
+        }
+    })
+    const userId = user.id
+    const verifyResult = await bcrypt.compare(password, user.password)
+    return { userId, verifyResult }
+}
