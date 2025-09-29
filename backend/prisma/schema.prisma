@@ -19,8 +19,8 @@ model Users {
 
 model Links {
   id          BigInt @id @default(autoincrement())
-  origin_lInk String
-  short_link  String
+  origin_link String @unique
+  short_link  String @unique
 
   host   Users  @relation(fields: [hostId], references: [id])
   hostId BigInt
