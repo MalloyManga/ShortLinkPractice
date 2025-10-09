@@ -4,7 +4,7 @@ import { AppError } from "../utils/AppError.js"
 import { nanoid } from 'nanoid'
 
 /**
- * 
+ * creat short url from origin long url
  * @param {string} originUrl - origin URL
  * @param {string} code - personalized code
  */
