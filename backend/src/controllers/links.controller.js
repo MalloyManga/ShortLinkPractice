@@ -15,8 +15,12 @@ export async function createShortUrl(req, res) {
     if (!origin_link) {
         return res.status(400).json({ message: "No origin link!" })
     }
-    const shortLink = await LinksServices.createShortUrl(origin_link, code)
-    return res.status(201).json(shortLink)
+    const { shortLink, message } = await LinksServices.createShortUrl(origin_link, code)
+    const results = {
+        shortLink,
+        message
+    }
+    return res.status(201).json(results)
 }
 
 /**

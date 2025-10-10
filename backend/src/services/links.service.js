@@ -20,7 +20,7 @@ export async function createShortUrl(originUrl, code) {
     })
 
     if (originLinkResult) {
-        return originLinkResult.short_link
+        return { shortLink: originLinkResult.short_link, message: 'short link code already exists!' }
     }
 
     let shortLink = ''
@@ -56,7 +56,7 @@ export async function createShortUrl(originUrl, code) {
     })
 
     // return short link
-    return linkObj.short_link
+    return { shortLink: linkObj.short_link, message: 'Created successfully' }
 }
 
 /**
