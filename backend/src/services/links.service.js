@@ -33,18 +33,18 @@ export async function createShortUrl(originUrl, code) {
         // check code exsitence
         const codeInUse = await client.links.findUnique({
             where: {
-                short_link: `https://${code}` // this string shows in forntend UI with v-model
+                short_link: `http://localhost:3000/myapp/go/${code}` // this string shows in forntend UI with v-model
             }
         })
         if (codeInUse) {
             throw new AppError('This code is already in use!', 409, 'ConflictError')
         }
 
-        shortLink = `https://${code}`
+        shortLink = `http://localhost:3000/myapp/go/${code}`
     }
     else { // generate a random code
         const randomCode = nanoid()
-        shortLink = `https://${randomCode}`
+        shortLink = `http://localhost:3000/myapp/go/${randomCode}`
     }
 
     // write LInkObj in db
