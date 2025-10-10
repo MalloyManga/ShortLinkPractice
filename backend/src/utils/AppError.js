@@ -2,7 +2,7 @@
 export class AppError extends Error {
     constructor(message, statusCode, name) {
         super(message)
-        statusCode = this.statusCode
+        this.statusCode = statusCode
         name = this.name
     }
 }
