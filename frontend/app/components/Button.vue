@@ -1,6 +1,5 @@
 <!-- comp/Button.vue -->
 <script setup lang="ts">
-import RightArrow from './icon/RightArrow.vue'
 
 interface Prop {
     btnContent: string
@@ -20,13 +19,13 @@ const emit = defineEmits<{
             <div
                 class="absolute left-1/2 top-1/2 size-2 -translate-1/2 transition-all duration-500 rounded-full opacity-0 group-hover:size-[200px] group-hover:opacity-100 origin-center bg-[#ADFF2F]">
             </div>
-            <RightArrow
+            <IconRightArrow
                 class="absolute text-[#212121] size-6 -translate-x-16 transition-transform duration-300 group-hover:-translate-x-4" />
             <span
                 class="transition-all duration-300 -translate-x-2  group-hover:translate-x-4 group-hover:text-[#212121]">
                 {{ btnContent }}
             </span>
-            <RightArrow
+            <IconRightArrow
                 class="absolute right-2 text-[#ADFF2F] size-6 transition-transform duration-300 group-hover:translate-x-10" />
         </button>
     </div>
