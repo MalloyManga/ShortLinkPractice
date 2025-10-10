@@ -58,3 +58,22 @@ export async function createShortUrl(originUrl, code) {
     // return short link
     return linkObj.short_link
 }
+
+/**
+ * get origin link using short link
+ * @param {string} shortLink
+ */
+export async function getOriginLinkWithShortLink(shortLink) {
+    if (!shortLink) {
+        throw new AppError('Short link is needed!', 400, 'BadRequestError')
+    }
+    const linkObj = await client.links.findUnique({
+        where: {
+            short_link: shortLink
+        }
+    })
+    if (!linkObj) {
+        throw new AppError('Short link not found!', 404, 'NotFoundError')
+    }
+    return linkObj.origin_link
+}
