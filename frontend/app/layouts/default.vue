@@ -4,6 +4,11 @@
 </script>
 
 <template>
+
+    <header class="absolute">
+        <Nav />
+    </header>
+
     <main class="bg-[#212121] w-screen h-screen inline-flex justify-center items-center">
         <NuxtPage />
     </main>
