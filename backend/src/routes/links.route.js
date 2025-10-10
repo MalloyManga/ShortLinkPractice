@@ -6,7 +6,7 @@ import {
 
 const route = Router()
 
-route.route('/short-links')
+route.route('/myapp/short-links')
     .post(createShortUrl)
 
 export default route
