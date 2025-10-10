@@ -1,7 +1,6 @@
 <!-- comp/Input.vue -->
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import ScaleProgressBar from './ScaleProgressBar.vue'
 
 interface Props {
     iptName: string
