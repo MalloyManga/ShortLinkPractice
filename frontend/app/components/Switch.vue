@@ -22,7 +22,7 @@ watch(isChecked, () => {
             class="mr-5 font-semibold cursor-default">
             {{ labels.false }}</span>
         <label class="inline-flex relative">
-            <div :class="isChecked ? 'bg-[#2D8CF0]' : 'bg-transparent'"
+            <div :class="isChecked ? 'bg-[#ADFF2F]' : 'bg-transparent'"
                 class="w-[50px] h-5 border-2 border-[#323232] rounded-sm shadow-[3px_3px] transition-all duration-300">
             </div>
             <div :class="isChecked ? 'translate-x-[30px]' : ''"

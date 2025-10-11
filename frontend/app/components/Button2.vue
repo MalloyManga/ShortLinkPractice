@@ -15,7 +15,7 @@ const emit = defineEmits<{
 <template>
     <div>
         <button type="button" @click="emit('btn2Click')"
-            class="outline-none px-4 py-2 rounded-sm border-2 border-[#ADFF2F] font-bold text-[#ADFF2F] cursor-pointer shadow-[3px_3px] active:shadow-[0px_0px] active:translate-[3px]">
+            class="bg-white outline-none px-4 py-2 rounded-sm border-2 border-[#323232] font-bold text-[#323232] cursor-pointer shadow-[3px_3px] active:shadow-[0px_0px] active:translate-[3px]">
             {{ btnContent }}
         </button>
     </div>
