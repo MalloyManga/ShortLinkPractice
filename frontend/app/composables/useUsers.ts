@@ -7,7 +7,7 @@ interface SignUpData {
 
 export const useSignUp = () => {
     const signUpDataForBody = ref<SignUpData | null>(null)
-    const { data, status, error, execute } = useFetch('https://localhost:3001/users/signup', {
+    const { data, status, error, execute } = useFetch('https://localhost:3000/users/signup', {
         method: 'POST',
         immediate: false,
         watch: false,
