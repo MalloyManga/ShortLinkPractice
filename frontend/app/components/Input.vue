@@ -41,7 +41,7 @@ const isActive = computed(() => {
                     {{ char }}
                 </span>
             </label>
-            <input type="text" id="ipt" :name="iptName" @focus="handleFocused" @blur="handleBlur" v-model="iptValue"
+            <input type="text" :name="iptName" @focus="handleFocused" @blur="handleBlur" v-model="iptValue"
                 class="outline-none text-gray-400 bg-transparent pl-2 border-b-[1px] border-gray-400" :class="iptWidth">
             <ScaleProgressBar prg-bgi="background-color: #ADFF2F;" :prg-scale="iptPrgBarSCale" :prg-width="iptWidth" />
         </div>
