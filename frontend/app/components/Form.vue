@@ -2,11 +2,36 @@
 <script setup lang="ts">
 const options = ref({ false: 'Sign in', true: 'Sign up' })
 const formTp = ref(false)
+const signUpData = reactive({
+    name: '',
+    email: '',
+    password: ''
+})
+const signInData = reactive({
+    email: '',
+    password: ''
+})
+const { setLoggedIn } = useAuth()
+const { signUp, data: useSignUpData, status: useSignUpStatus, error: useSignUpError } = useSignUp()
+const { signIn, data: useSignInData, status: useSignInStatus, error: useSignInError } = useSignIn()
+
+const emit = defineEmits<{
+    logined: []
+}>()
 
 const formTpChange = (isSwt2Checked: boolean) => {
     formTp.value = isSwt2Checked
 }
-
+async function handleSignUp() {
+    await signUp(signUpData)
+}
+async function handleSignIn() {
+    await signIn(signInData)
+    if (!useSignInError.value) {
+        setLoggedIn()
+        emit('logined')
+    }
+}
 </script>
 
 <template>
@@ -15,29 +40,33 @@ const formTpChange = (isSwt2Checked: boolean) => {
             <Switch :labels="options" @swt2-check="formTpChange" class="mb-4" />
             <Transition name="turn" mode="out-in">
                 <div v-if="!formTp">
-                    <form action="#"
+                    <form @submit.prevent="handleSignIn"
                         class="flex flex-col justify-between gap-5 p-5 rounded-xl bg-[#D3D3D3] border-2 border-[#323232]">
                         <div class="font-bold text-[25px] text-center text-[#323232] my-5 ">
                             {{ options.false }}
                         </div>
+                        <ErrorBar v-if="useSignInError" :error-message="useSignInError?.message" />
                         <div class="flex flex-col gap-5 items-center">
-                            <Input2 ipt-type="email" ipt-pholder="Email" />
-                            <Input2 ipt-type="password" ipt-pholder="Password" />
-                            <Button2 btn-content="Let's go!" class="my-5" />
+                            <Input2 ipt-type="email" ipt-pholder="Email" v-model="signInData.email" />
+                            <Input2 ipt-type="password" ipt-pholder="Password" v-model="signInData.password" />
+                            <Button2 btn-type="submit" btn-content="Sign in" class="my-5" btn-status="default"
+                                :is-disabled="useSignInStatus === 'pending'" />
                         </div>
                     </form>
                 </div>
                 <div v-else>
-                    <form action="#"
+                    <form @submit.prevent="handleSignUp"
                         class="flex flex-col justify-between gap-5 p-5 rounded-xl bg-[#D3D3D3] border-2 border-[#323232]">
                         <div class="font-bold text-[25px] text-center text-[#323232] my-5 ">
                             {{ options.true }}
                         </div>
+                        <ErrorBar v-if="useSignUpError" :error-message="useSignUpError?.message" />
                         <div class="flex flex-col gap-5 items-center">
-                            <Input2 ipt-type="text" ipt-pholder="Name" />
-                            <Input2 ipt-type="email" ipt-pholder="Email" />
-                            <Input2 ipt-type="password" ipt-pholder="Password" />
-                            <Button2 btn-content="Confirm!" class="my-5" />
+                            <Input2 ipt-type="text" ipt-pholder="Name" v-model="signUpData.name" />
+                            <Input2 ipt-type="email" ipt-pholder="Email" v-model="signUpData.email" />
+                            <Input2 ipt-type="password" ipt-pholder="Password" v-model="signUpData.password" />
+                            <Button2 btn-type="submit" btn-content="Confirm" class="my-5" btn-status="default"
+                                :is-disabled="useSignUpStatus === 'pending'" />
                         </div>
                     </form>
                 </div>
