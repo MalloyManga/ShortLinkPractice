@@ -28,6 +28,11 @@ export async function userLogin(emailOrName, password) {
             ]
         }
     })
+
+    if (!user) {
+        return { verifyResult: false }
+    }
+
     const userId = user.id
     const userEmail = user.email
     const verifyResult = await bcrypt.compare(password, user.password)
