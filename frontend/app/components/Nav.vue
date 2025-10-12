@@ -8,7 +8,7 @@ const userStatus = computed(() => {
         default: 'text-gray-400',
         logIned: 'text-[#ADFF2F]'
     }
-    return isLoggedIn ? userStatusMap.default : userStatusMap.logIned
+    return isLoggedIn.value ? userStatusMap.logIned : userStatusMap.default
 })
 function modalOpen() {
     isModalOpen.value = true
