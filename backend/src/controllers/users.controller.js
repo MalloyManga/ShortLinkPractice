@@ -42,7 +42,7 @@ export async function createUser(req, res) {
  */
 export async function userVerifyWhenLogin(req, res) {
     const { emailOrName, password } = req.body
-    const { userId, userEmail, verifyResult } = await usersServices.userLogin(emailOrName, password)
+    const { userId, userEmail, userName, verifyResult } = await usersServices.userLogin(emailOrName, password)
     if (!verifyResult) {
         throw new AppError('Invalid credentials', 401, 'UnauthorizedError')
     }
@@ -62,6 +62,7 @@ export async function userVerifyWhenLogin(req, res) {
     // 2. 返回的 JSON 中不再需要包含 token
     return res.status(200).json({
         message: 'Successfully login!',
-        userEmail,
+        userName,
+        userEmail
     })
 }
