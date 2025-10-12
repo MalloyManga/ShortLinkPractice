@@ -12,6 +12,7 @@ const signInData = reactive({
     password: ''
 })
 const { setLoggedIn } = useAuth()
+const { setUserInfo } = useUserInfo()
 const { signUp, data: useSignUpData, status: useSignUpStatus, error: useSignUpError } = useSignUp()
 const { signIn, data: useSignInData, status: useSignInStatus, error: useSignInError } = useSignIn()
 
@@ -28,6 +29,12 @@ async function handleSignUp() {
 async function handleSignIn() {
     await signIn(signInData)
     if (!useSignInError.value) {
+        if (useSignInData.value) {
+            setUserInfo({
+                name: useSignInData.value.userName,
+                email: useSignInData.value.userEmail
+            })
+        }
         setLoggedIn()
         emit('logined')
     }

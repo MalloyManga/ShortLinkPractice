@@ -29,8 +29,11 @@ function modalClose() {
     <div v-if="isModalOpen"
         class="fixed top-0 left-0 z-1 w-screen h-screen bg-black/70 flex justify-center items-center"
         @click="modalClose">
-        <div class="relative z-2" @click.stop>
+        <div v-if="!isLoggedIn" class="relative z-2" @click.stop>
             <Form @logined="modalClose" />
+        </div>
+        <div v-else class="relative z-2">
+            <UserInforCard />
         </div>
     </div>
 </template>
