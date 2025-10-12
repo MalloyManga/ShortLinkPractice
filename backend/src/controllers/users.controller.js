@@ -28,7 +28,7 @@ export async function createUser(req, res) {
  */
 export async function userVerifyWhenLogin(req, res) {
     const { emailOrName, password } = req.body
-    const { userId, verifyResult } = await usersServices.userLogin(emailOrName, password)
+    const { userId, userEmail, verifyResult } = await usersServices.userLogin(emailOrName, password)
     if (!verifyResult) {
         throw new AppError('Email or name is uncorrect!', 401, 'UnauthorizedError')
     }
@@ -37,6 +37,7 @@ export async function userVerifyWhenLogin(req, res) {
     })
     return res.status(200).json({
         message: 'Successfully login!',
+        userEmail,
         token
     })
 }

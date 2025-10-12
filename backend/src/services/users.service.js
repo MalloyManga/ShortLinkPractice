@@ -29,6 +29,7 @@ export async function userLogin(emailOrName, password) {
         }
     })
     const userId = user.id
+    const userEmail = user.email
     const verifyResult = await bcrypt.compare(password, user.password)
-    return { userId, verifyResult }
+    return { userId, userEmail, verifyResult }
 }
