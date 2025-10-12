@@ -1,6 +1,6 @@
 <!-- Input2.vue -->
 <script setup lang="ts">
-const iptValue = defineModel<string>()
+const iptValue = defineModel<string>({ required: true })
 
 type IptType = 'text' | 'email' | 'password' | 'textarea'
 
