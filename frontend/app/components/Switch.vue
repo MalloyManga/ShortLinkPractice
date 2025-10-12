@@ -19,7 +19,7 @@ watch(isChecked, () => {
 <template>
     <div>
         <span v-if="labels" @click="isChecked = false" :class="isChecked ? '' : 'underline'"
-            class="mr-5 font-semibold cursor-default">
+            class="mr-5 font-semibold cursor-default text-white">
             {{ labels.false }}</span>
         <label class="inline-flex relative">
             <div :class="isChecked ? 'bg-[#ADFF2F]' : 'bg-transparent'"
@@ -31,6 +31,6 @@ watch(isChecked, () => {
             <input type="checkbox" v-model="isChecked" class="appearance-none">
         </label>
         <span v-if="labels" @click="isChecked = true" :class="isChecked ? 'underline' : ''"
-            class="ml-5 font-semibold cursor-default">{{ labels.true }}</span>
+            class="ml-5 font-semibold cursor-default text-white">{{ labels.true }}</span>
     </div>
 </template>
