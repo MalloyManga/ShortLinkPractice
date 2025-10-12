@@ -6,8 +6,9 @@ interface Props {
     iptName: string
     iptLabel: string
     iptWidth?: string
+    iptId: string
 }
-const { iptName = 'ipt', iptLabel = 'Name', iptWidth = 'w-46' } = defineProps<Props>()
+const { iptName = 'ipt', iptLabel = 'Name', iptWidth = 'w-46', iptId } = defineProps<Props>()
 const iptValue = defineModel<string>('iptValue')
 const isFocused = ref(false)
 
@@ -33,7 +34,7 @@ const isActive = computed(() => {
 <template>
     <div>
         <div class="relative inline-block">
-            <label for="ipt" class="absolute left-2 text-gray-400 cursor-text">
+            <label :for="iptId" class="absolute left-2 text-gray-400 cursor-text">
                 <span v-for="(char, index) in chars" :key="index"
                     :class="isActive ? 'text-[#ADFF2F] -translate-y-[21px] scale-90' : ''"
                     class="inline-block select-none transition-all duration-300 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)]"
@@ -41,7 +42,7 @@ const isActive = computed(() => {
                     {{ char }}
                 </span>
             </label>
-            <input type="text" :name="iptName" @focus="handleFocused" @blur="handleBlur" v-model="iptValue"
+            <input type="text" :name="iptName" @focus="handleFocused" @blur="handleBlur" v-model="iptValue" :id="iptId"
                 class="outline-none text-gray-400 bg-transparent pl-2 border-b-[1px] border-gray-400" :class="iptWidth">
             <ScaleProgressBar prg-bgi="background-color: #ADFF2F;" :prg-scale="iptPrgBarSCale" :prg-width="iptWidth" />
         </div>
