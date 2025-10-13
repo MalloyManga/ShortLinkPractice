@@ -5,8 +5,9 @@ interface Props {
     iptLabel: string
     iptWidth?: string
     iptId: string
+    isIptRequired: boolean
 }
-const { iptName = 'ipt', iptLabel = 'Name', iptWidth = 'w-46', iptId } = defineProps<Props>()
+const { iptName = 'ipt', iptLabel = 'Name', iptWidth = 'w-46', iptId, isIptRequired } = defineProps<Props>()
 const iptValue = defineModel<string>('iptValue')
 const isFocused = ref(false)
 
@@ -41,6 +42,7 @@ const isActive = computed(() => {
                 </span>
             </label>
             <input type="text" :name="iptName" @focus="handleFocused" @blur="handleBlur" v-model="iptValue" :id="iptId"
+                :required="isIptRequired"
                 class="outline-none text-gray-400 bg-transparent pl-2 border-b-[1px] border-gray-400" :class="iptWidth">
             <ScaleProgressBar prg-bgi="background-color: #ADFF2F;" :prg-scale="iptPrgBarSCale" :prg-width="iptWidth" />
         </div>
