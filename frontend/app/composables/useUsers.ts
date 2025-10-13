@@ -18,7 +18,7 @@ interface SignInResponse {
 
 export const useSignUp = () => {
     const signUpDataForBody = ref<SignUpData | null>(null)
-    const { data, status, error, execute } = useFetch('https://localhost:3000/users/signup', {
+    const { data, status, error, execute } = useFetch('http://localhost:3000/users/signup', {
         method: 'POST',
         immediate: false,
         watch: false,
@@ -38,7 +38,7 @@ export const useSignUp = () => {
 
 export const useSignIn = () => {
     const signInDataForBody = ref<SignInData | null>(null)
-    const { data, status, error, execute } = useFetch<SignInResponse>('https://localhost:3000/users/signin', {
+    const { data, status, error, execute } = useFetch<SignInResponse>('http://localhost:3000/users/signin', {
         method: 'POST',
         immediate: false,
         watch: false,
