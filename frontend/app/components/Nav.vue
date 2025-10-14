@@ -32,7 +32,7 @@ function modalClose() {
         <div v-if="!isLoggedIn" class="relative z-2" @click.stop>
             <Form @logined="modalClose" />
         </div>
-        <div v-else class="relative z-2">
+        <div v-else class="relative z-2" @click.stop>
             <UserInforCard />
         </div>
     </div>
