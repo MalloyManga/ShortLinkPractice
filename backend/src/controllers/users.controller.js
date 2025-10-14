@@ -8,14 +8,16 @@ import { generateToken } from '../utils/jwtHelper.js'
 /**
  * @typedef {import('express').Request} Request
  * @typedef {import('express').Response} Response
+ * @typedef {import('express').NextFunction} NextFunction 
  */
 
 
 /**
  * @param {Request} req 
  * @param {Response} res 
+ * @param {NextFunction} next
  */
-export async function createUser(req, res) {
+export async function createUser(req, res, next) {
     try {
         const { name, email, password } = req.body
         const newUser = await usersServices.userCreate(name, email, password)

@@ -25,6 +25,10 @@ const formTpChange = (isSwt2Checked: boolean) => {
 }
 async function handleSignUp() {
     await signUp(signUpData)
+    if (!useSignUpError.value) {
+        alert('Registration successful! Please sign in.') // test
+        formTp.value = false
+    }
 }
 async function handleSignIn() {
     await signIn(signInData)
@@ -52,7 +56,8 @@ async function handleSignIn() {
                         <div class="font-bold text-[25px] text-center text-[#323232] my-5 ">
                             {{ options.false }}
                         </div>
-                        <ErrorBar v-if="useSignInError" :error-message="useSignInError?.message" />
+                        <ErrorBar v-if="useSignInError"
+                            :error-message="useSignInError.data?.message || 'An unknown error occurred.'" />
                         <div class="flex flex-col gap-5 items-center">
                             <Input2 ipt-type="email" ipt-pholder="Email" v-model="signInData.email" />
                             <Input2 ipt-type="password" ipt-pholder="Password" v-model="signInData.password" />
@@ -67,7 +72,8 @@ async function handleSignIn() {
                         <div class="font-bold text-[25px] text-center text-[#323232] my-5 ">
                             {{ options.true }}
                         </div>
-                        <ErrorBar v-if="useSignUpError" :error-message="useSignUpError?.message" />
+                        <ErrorBar v-if="useSignUpError"
+                            :error-message="useSignUpError.data?.message || 'An unknown error occurred.'" />
                         <div class="flex flex-col gap-5 items-center">
                             <Input2 ipt-type="text" ipt-pholder="Name" v-model="signUpData.name" />
                             <Input2 ipt-type="email" ipt-pholder="Email" v-model="signUpData.email" />
