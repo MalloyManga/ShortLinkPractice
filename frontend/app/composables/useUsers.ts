@@ -6,7 +6,7 @@ interface SignUpData {
 }
 
 interface SignInData {
-    email: string
+    emailOrName: string
     password: string
 }
 

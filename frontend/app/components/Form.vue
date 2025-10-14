@@ -8,7 +8,7 @@ const signUpData = reactive({
     password: ''
 })
 const signInData = reactive({
-    email: '',
+    emailOrName: '',
     password: ''
 })
 const { setLoggedIn } = useAuth()
@@ -59,7 +59,7 @@ async function handleSignIn() {
                         <ErrorBar v-if="useSignInError"
                             :error-message="useSignInError.data?.message || 'An unknown error occurred.'" />
                         <div class="flex flex-col gap-5 items-center">
-                            <Input2 ipt-type="email" ipt-pholder="Email" v-model="signInData.email" />
+                            <Input2 ipt-type="email" ipt-pholder="Email" v-model="signInData.emailOrName" />
                             <Input2 ipt-type="password" ipt-pholder="Password" v-model="signInData.password" />
                             <Button2 btn-type="submit" btn-content="Sign in" class="my-5" btn-status="default"
                                 :is-disabled="useSignInStatus === 'pending'" />
