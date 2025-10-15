@@ -15,12 +15,9 @@ import { verifyToken } from "../utils/jwtHelper.js"
  * @param {NextFunction} next 
  */
 export const authMiddleware = async (req, _res, next) => {
-    // 1. 从 req.cookies 中读取名为 'auth_token' 的 cookie
     const token = req.cookies.auth_token
 
-    // 2. 检查 token 是否存在
     if (!token) {
-        // 如果不存在，抛出错误
         throw new AppError('Login needed!', 401, 'Unauthorized')
     }
 

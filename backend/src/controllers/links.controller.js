@@ -30,7 +30,7 @@ export async function createShortUrl(req, res) {
  * @param {Response} res 
  */
 export async function redirectToOriginLink(req, res) {
-    const { code } = req.params // http://localhost:3000/myapp/go/${code}
+    const { code } = req.params
     if (!code) {
         return res.status(400).json({ message: "Short link is invalid!" })
     }
