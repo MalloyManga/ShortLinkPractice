@@ -12,10 +12,11 @@ import * as LinksServices from '../services/links.service.js'
  */
 export async function createShortUrl(req, res) {
     const { origin_link, code } = req.body
+    const userId = req.userId
     if (!origin_link) {
         return res.status(400).json({ message: "No origin link!" })
     }
-    const { shortLink, message } = await LinksServices.createShortUrl(origin_link, code)
+    const { shortLink, message } = await LinksServices.createShortUrl(origin_link, code, userId)
     const results = {
         shortLink,
         message

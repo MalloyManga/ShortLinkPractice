@@ -7,8 +7,9 @@ import { nanoid } from 'nanoid'
  * creat short url from origin long url
  * @param {string} originUrl - origin URL
  * @param {string} code - personalized code
+ * @param {string} userId
  */
-export async function createShortUrl(originUrl, code) {
+export async function createShortUrl(originUrl, code, userId) {
     if (!originUrl.includes('https://')) {
         throw new AppError('Inalid URL!', 400, 'BadRequestError') // bad request
     }
@@ -51,7 +52,8 @@ export async function createShortUrl(originUrl, code) {
     const linkObj = await client.links.create({
         data: {
             origin_link: originUrl,
-            short_link: shortLink
+            short_link: shortLink,
+            hostId: userId
         }
     })
 

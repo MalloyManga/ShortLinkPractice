@@ -11,16 +11,23 @@ interface ShortLinkResponse {
 
 export const useLinks = () => {
     const linksDataForBody = ref<LinksData | null>(null)
-    const { data, status, error, execute } = useFetch<ShortLinkResponse>(`${useRuntimeConfig().public.apiBase}/myapp/short-links`, {
+    const config = useRuntimeConfig()
+    const apiUrl = `${config.public.apiBase}myapp/short-links`
+
+    const { data, status, error, execute } = useFetch<ShortLinkResponse>(apiUrl, {
         method: 'POST',
+        body: linksDataForBody,
         immediate: false,
         watch: false,
-        body: linksDataForBody
+        credentials: 'include'
     })
-    const setLinksData = async (linksData: LinksData) => {
-        linksDataForBody.value = linksData
+
+    const setLinksData = async (newLinksData: LinksData) => {
+        console.log(newLinksData)
+        linksDataForBody.value = newLinksData
         await execute()
     }
+
     return {
         setLinksData,
         data,

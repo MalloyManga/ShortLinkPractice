@@ -17,7 +17,7 @@ async function handleGetShortLink() {
     displayError.value = null
     btnContent.value = 'Generating...' // 可以给一个加载中的状态
 
-    await setLinksData(linksData)
+    await setLinksData(toRaw(linksData))
 
     // 4. 检查 linksError.value 是否有值
     if (linksError.value) {
@@ -46,9 +46,9 @@ async function handleGetShortLink() {
         <Card>
             <template #ipt>
                 <Input ipt-label="Origin Link" ipt-name="origin_link" ipt-width="w-96" ipt-id="origin_link"
-                    :is-ipt-required="true" v-model="linksData.origin_link" />
+                    :is-ipt-required="true" v-model:ipt-value="linksData.origin_link" />
                 <Input ipt-label="Code" ipt-name="short_link" ipt-width="w-96" ipt-id="code" :is-ipt-required="false"
-                    v-model="linksData.code" />
+                    v-model:ipt-value="linksData.code" />
             </template>
             <template #btn>
                 <Button :btn-content="btnContent" @btn-click="handleGetShortLink" />

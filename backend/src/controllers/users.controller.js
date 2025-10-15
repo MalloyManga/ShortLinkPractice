@@ -56,7 +56,7 @@ export async function userVerifyWhenLogin(req, res) {
     res.cookie('auth_token', token, {
         httpOnly: true, // 核心！JS 无法读取此 cookie
         secure: process.env.NODE_ENV === 'production', // 在生产环境中只通过 HTTPS 发送
-        sameSite: 'strict', // 'strict' 或 'lax'，增强 CSRF 防护
+        sameSite: 'lax', // 'strict' 或 'lax'，增强 CSRF 防护
         path: '/', // 整个网站都可用
         maxAge: 24 * 60 * 60 * 1000 // 设置过期时间，例如 24 小时
     })

@@ -42,7 +42,8 @@ export const useSignIn = () => {
         method: 'POST',
         immediate: false,
         watch: false,
-        body: signInDataForBody
+        body: signInDataForBody,
+        credentials: 'include'
     })
     const signIn = async (signInData: SignInData) => {
         signInDataForBody.value = signInData

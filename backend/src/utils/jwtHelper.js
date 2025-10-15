@@ -9,7 +9,7 @@ const alg = 'HS256'
 export async function generateToken(data) {
     const token = await new jose.SignJWT(data)
         .setProtectedHeader({ alg })
-        .setExpirationTime('2m')
+        .setExpirationTime('24h') // Token 过期的时间 token存储在cookie当中
         .sign(secret)
     return token
 }
