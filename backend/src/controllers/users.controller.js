@@ -48,6 +48,7 @@ export async function userVerifyWhenLogin(req, res) {
         id: String(userId),
     })
 
+    // set cookie 
     res.cookie('auth_token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',

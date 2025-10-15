@@ -43,7 +43,7 @@ export const useSignIn = () => {
         immediate: false,
         watch: false,
         body: signInDataForBody,
-        credentials: 'include'
+        credentials: 'include' // 声明前端在跨域请求的时间需要处理凭证问题
     })
     const signIn = async (signInData: SignInData) => {
         signInDataForBody.value = signInData
