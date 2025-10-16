@@ -22,10 +22,8 @@ export const authMiddleware = async (req, _res, next) => {
     }
 
     try {
-        // 3. 验证 token
         const verifyResult = await verifyToken(token)
-        // 4. 将用户信息附加到 req 对象上，供后续路由使用
-        req.userId = verifyResult.payload.id
+        req.userId = BigInt(verifyResult.payload.id)
         next()
     } catch (error) {
         // 如果 token 无效或过期，verifyToken 会抛出错误
