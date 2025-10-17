@@ -5,6 +5,7 @@ import usersRoute from './routes/users.route.js'
 import linksRoute from './routes/links.route.js'
 import autoAuthRoute from './routes/autoAuth.route.js'
 import { authMiddleware } from './middleware/authMiddleware.js'
+import { autoAuthMiddlware } from './middleware/autoAuthMiddlware.js'
 
 const app = express()
 
@@ -18,8 +19,9 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use('/users', usersRoute)
+app.use('/auto-auth', autoAuthMiddlware, autoAuthRoute)
+
 app.use(authMiddleware)
-app.use('/', autoAuthRoute)
 app.use('/', linksRoute)
 
 export default app

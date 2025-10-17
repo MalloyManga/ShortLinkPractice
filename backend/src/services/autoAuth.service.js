@@ -11,7 +11,7 @@ export async function userAutoAuth(userId) {
             id: userId
         }
     })
-    const name = user.id
+    const name = user.name
     const email = user.email
     return {
         name,
