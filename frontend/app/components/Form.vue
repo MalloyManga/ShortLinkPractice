@@ -69,7 +69,7 @@ async function handleSignIn() {
                             :error-message="useSignInError.data?.message || 'An unknown error occurred.'" />
 
                         <div class="space-y-4">
-                            <Input2 ipt-type="email" ipt-pholder="Email or Username" v-model="signInData.emailOrName" />
+                            <Input2 ipt-type="text" ipt-pholder="Email or Username" v-model="signInData.emailOrName" />
                             <Input2 ipt-type="password" ipt-pholder="Password" v-model="signInData.password" />
                         </div>
 
