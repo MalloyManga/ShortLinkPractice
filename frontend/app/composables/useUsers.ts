@@ -56,3 +56,21 @@ export const useSignIn = () => {
         error
     }
 }
+
+export const useSignOut = () => {
+    const { data, status, error, execute } = useFetch('http://localhost:3000/users/signout', {
+        method: 'POST',
+        immediate: false,
+        watch: false,
+        credentials: 'include' // 需要发送 cookie
+    })
+    const signOut = async () => {
+        await execute()
+    }
+    return {
+        signOut,
+        data,
+        status,
+        error
+    }
+}

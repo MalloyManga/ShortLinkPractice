@@ -80,7 +80,7 @@ export async function userVerifyWhenLogin(req, res, next) {
             secure: isProduction,
             sameSite: isProduction ? 'strict' : 'lax',
             path: '/',
-            maxAge: 24 * 60 * 60 * 1000 // 24 hours
+            maxAge: 2 * 60 * 60 * 1000 // 2 hours (匹配 token 过期时间)
         })
 
         console.log(`[User Login] ${userName} (${userEmail})`)
@@ -89,6 +89,32 @@ export async function userVerifyWhenLogin(req, res, next) {
             message: 'Successfully logged in!',
             userName,
             userEmail
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+/**
+ * User logout - clear HTTP-only cookie
+ * @param {Request} req 
+ * @param {Response} res 
+ * @param {NextFunction} next
+ */
+export async function userLogout(req, res, next) {
+    try {
+        // 清除 cookie
+        res.clearCookie('auth_token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+            path: '/'
+        })
+
+        console.log('[User Logout] Cookie cleared')
+
+        return res.status(200).json({
+            message: 'Successfully logged out!'
         })
     } catch (error) {
         next(error)

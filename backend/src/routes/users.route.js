@@ -2,7 +2,8 @@
 import { Router } from "express"
 import {
     createUser,
-    userVerifyWhenLogin
+    userVerifyWhenLogin,
+    userLogout
 } from "../controllers/users.controller.js"
 
 const router = Router()
@@ -12,5 +13,8 @@ router.route('/signup')
     
 router.route('/signin')
     .post(userVerifyWhenLogin)
+
+router.route('/signout')
+    .post(userLogout)
 
 export default router

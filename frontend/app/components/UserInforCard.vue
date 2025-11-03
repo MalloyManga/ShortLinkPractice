@@ -2,13 +2,17 @@
 <script setup lang="ts">
 const { userInfo } = useUserInfo()
 const { setLoggedOut } = useAuth()
+const { signOut } = useSignOut()
+const { success } = useToast()
 
 const emit = defineEmits<{
     close: []
 }>()
 
-const handleLogout = () => {
+const handleLogout = async () => {
+    await signOut()
     setLoggedOut()
+    success('Successfully logged out!')
     emit('close')
 }
 </script>
