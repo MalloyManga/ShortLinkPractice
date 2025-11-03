@@ -10,6 +10,9 @@ export default defineNuxtConfig({
       apiBase: process.env.NUXT_PUBLIC_API_BASE
     }
   },
+  devServer: {
+    port: 3001
+  },
   vite: {
     plugins: [
       tailwindcss()

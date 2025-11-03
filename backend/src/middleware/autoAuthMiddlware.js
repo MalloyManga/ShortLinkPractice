@@ -13,9 +13,23 @@ import { verifyToken } from '../utils/jwtHelper.js'
  * @param {Response} res 
  * @param {NextFunction} next 
  */
-export const autoAuthMiddlware = async (req, _res, next) => {
-    const token = req.cookies.auth_token
-    const verifyResult = await verifyToken(token)
-    req.userId = BigInt(verifyResult.payload.id)
-    next()
+export const autoAuthMiddlware = async (req, res, next) => {
+    try {
+        const token = req.cookies.auth_token
+        
+        if (!token) {
+            return res.status(401).json({ message: "No token provided" })
+        }
+        
+        const verifyResult = await verifyToken(token)
+        
+        if (!verifyResult || !verifyResult.payload || !verifyResult.payload.id) {
+            return res.status(401).json({ message: "Invalid token" })
+        }
+        
+        req.userId = BigInt(verifyResult.payload.id)
+        next()
+    } catch (error) {
+        return res.status(401).json({ message: "Authentication failed" })
+    }
 }
