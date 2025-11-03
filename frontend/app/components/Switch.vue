@@ -17,20 +17,29 @@ watch(isChecked, () => {
 </script>
 
 <template>
-    <div>
-        <span v-if="labels" @click="isChecked = false" :class="isChecked ? '' : 'underline'"
-            class="mr-5 font-semibold cursor-default text-white">
-            {{ labels.false }}</span>
-        <label class="inline-flex relative">
-            <div :class="isChecked ? 'bg-[#ADFF2F]' : 'bg-transparent'"
-                class="w-[50px] h-5 border-2 border-[#323232] rounded-sm shadow-[3px_3px] transition-all duration-300">
-            </div>
-            <div :class="isChecked ? 'translate-x-[30px]' : ''"
-                class="bg-white size-5 absolute -top-1 rounded-sm border-2 border-[#323232] shadow-[0px_3px] transition-all duration-300">
-            </div>
-            <input type="checkbox" v-model="isChecked" class="appearance-none">
+    <div class="flex items-center space-x-4">
+        <button 
+            v-if="labels" 
+            @click="isChecked = false" 
+            :class="!isChecked ? 'text-white font-semibold' : 'text-gray-400'"
+            class="text-sm transition-all duration-300 hover:text-white"
+        >
+            {{ labels.false }}
+        </button>
+        
+        <label class="relative inline-flex cursor-pointer">
+            <input type="checkbox" v-model="isChecked" class="sr-only peer">
+            <div class="w-14 h-7 bg-white/10 backdrop-blur-sm rounded-full peer-checked:bg-gradient-to-r peer-checked:from-purple-500 peer-checked:to-pink-500 transition-all duration-300 border-2 border-white/20 peer-checked:border-transparent"></div>
+            <div class="absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full transition-all duration-300 peer-checked:translate-x-7 shadow-lg"></div>
         </label>
-        <span v-if="labels" @click="isChecked = true" :class="isChecked ? 'underline' : ''"
-            class="ml-5 font-semibold cursor-default text-white">{{ labels.true }}</span>
+        
+        <button 
+            v-if="labels" 
+            @click="isChecked = true" 
+            :class="isChecked ? 'text-white font-semibold' : 'text-gray-400'"
+            class="text-sm transition-all duration-300 hover:text-white"
+        >
+            {{ labels.true }}
+        </button>
     </div>
 </template>
