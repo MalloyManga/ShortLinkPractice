@@ -35,7 +35,7 @@ function modalClose() {
             >
                 <IconUser :class="userStatus" class="w-6 h-6 transition-colors duration-300" />
                 <span class="text-white text-sm hidden sm:block">
-                    {{ isLoggedIn ? '我的账户' : '登录' }}
+                    {{ isLoggedIn ? 'My Account' : 'Sign In' }}
                 </span>
             </button>
         </div>
