@@ -1,4 +1,5 @@
 // users.controller.js
+import { Prisma } from '@prisma/client'
 import * as usersServices from '../services/users.service.js'
 import { AppError } from '../utils/AppError.js'
 import bigintHandler from '../utils/bigintHandler.js'
@@ -14,6 +15,7 @@ import { UserSchema, LoginUserSchema } from '../schemas/user.schema.js'
 
 
 /**
+ * Create new user
  * @param {Request} req 
  * @param {Response} res 
  * @param {NextFunction} next
@@ -29,12 +31,13 @@ export async function createUser(req, res, next) {
 
         const { name, email, password } = result.data
         const newUser = await usersServices.userCreate(name, email, password)
+
         res.setHeader('Content-Type', 'application/json')
         return res.status(201).send(JSON.stringify(newUser, bigintHandler))
     } catch (error) {
-
+        // Handle unique constraint violation
         if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
-            const field = error.meta.target[0];
+            const field = error.meta?.target?.[0] || 'field'
             return res.status(409).json({
                 message: `The ${field} is already taken.`
             })
@@ -45,6 +48,7 @@ export async function createUser(req, res, next) {
 }
 
 /**
+ * User login verification
  * @param {Request} req 
  * @param {Response} res 
  * @param {NextFunction} next
@@ -64,22 +68,25 @@ export async function userVerifyWhenLogin(req, res, next) {
         if (!verifyResult) {
             throw new AppError('Invalid credentials', 401, 'UnauthorizedError')
         }
-        
+
         const token = await generateToken({
             id: String(userId),
         })
 
-        // set cookie 
+        // Set HTTP-only cookie
+        const isProduction = process.env.NODE_ENV === 'production'
         res.cookie('auth_token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
+            secure: isProduction,
+            sameSite: isProduction ? 'strict' : 'lax',
             path: '/',
-            maxAge: 24 * 60 * 60 * 1000
+            maxAge: 24 * 60 * 60 * 1000 // 24 hours
         })
 
+        console.log(`[User Login] ${userName} (${userEmail})`)
+
         return res.status(200).json({
-            message: 'Successfully login!',
+            message: 'Successfully logged in!',
             userName,
             userEmail
         })
