@@ -65,30 +65,16 @@ async function handleSignIn() {
                             <p class="text-gray-400 text-sm">Sign in to continue</p>
                         </div>
 
-                        <ErrorBar 
-                            v-if="useSignInError"
-                            :error-message="useSignInError.data?.message || 'An unknown error occurred.'" 
-                        />
+                        <ErrorBar v-if="useSignInError"
+                            :error-message="useSignInError.data?.message || 'An unknown error occurred.'" />
 
                         <div class="space-y-4">
-                            <Input2 
-                                ipt-type="email" 
-                                ipt-pholder="Email or Username" 
-                                v-model="signInData.emailOrName" 
-                            />
-                            <Input2 
-                                ipt-type="password" 
-                                ipt-pholder="Password" 
-                                v-model="signInData.password" 
-                            />
+                            <Input2 ipt-type="email" ipt-pholder="Email or Username" v-model="signInData.emailOrName" />
+                            <Input2 ipt-type="password" ipt-pholder="Password" v-model="signInData.password" />
                         </div>
 
-                        <Button2 
-                            btn-type="submit" 
-                            btn-content="Sign In" 
-                            btn-status="default"
-                            :is-disabled="useSignInStatus === 'pending'" 
-                        />
+                        <Button2 btn-type="submit" btn-content="Sign In" btn-status="default"
+                            :is-disabled="useSignInStatus === 'pending'" />
                     </form>
                 </div>
 
@@ -100,35 +86,17 @@ async function handleSignIn() {
                             <p class="text-gray-400 text-sm">Sign up to get started</p>
                         </div>
 
-                        <ErrorBar 
-                            v-if="useSignUpError"
-                            :error-message="useSignUpError.data?.message || 'An unknown error occurred.'" 
-                        />
+                        <ErrorBar v-if="useSignUpError"
+                            :error-message="useSignUpError.data?.message || 'An unknown error occurred.'" />
 
                         <div class="space-y-4">
-                            <Input2 
-                                ipt-type="text" 
-                                ipt-pholder="Username" 
-                                v-model="signUpData.name" 
-                            />
-                            <Input2 
-                                ipt-type="email" 
-                                ipt-pholder="Email" 
-                                v-model="signUpData.email" 
-                            />
-                            <Input2 
-                                ipt-type="password" 
-                                ipt-pholder="Password" 
-                                v-model="signUpData.password" 
-                            />
+                            <Input2 ipt-type="text" ipt-pholder="Username" v-model="signUpData.name" />
+                            <Input2 ipt-type="email" ipt-pholder="Email" v-model="signUpData.email" />
+                            <Input2 ipt-type="password" ipt-pholder="Password" v-model="signUpData.password" />
                         </div>
 
-                        <Button2 
-                            btn-type="submit" 
-                            btn-content="Create Account" 
-                            btn-status="default"
-                            :is-disabled="useSignUpStatus === 'pending'" 
-                        />
+                        <Button2 btn-type="submit" btn-content="Create Account" btn-status="default"
+                            :is-disabled="useSignUpStatus === 'pending'" />
                     </form>
                 </div>
             </Transition>

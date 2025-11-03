@@ -21,18 +21,16 @@ function modalClose() {
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <!-- Logo/标题 -->
             <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <div
+                    class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
                     <span class="text-white font-bold text-xl">S</span>
                 </div>
                 <span class="text-white font-bold text-xl hidden sm:block">ShortLink</span>
             </div>
 
             <!-- 用户按钮 -->
-            <button 
-                type="button" 
-                @click="modalOpen"
-                class="glass-effect px-4 py-2 rounded-xl flex items-center space-x-2 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20 cursor-pointer"
-            >
+            <button type="button" @click="modalOpen"
+                class="glass-effect px-4 py-2 rounded-xl flex items-center space-x-2 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20 cursor-pointer">
                 <IconUser :class="userStatus" class="w-6 h-6 transition-colors duration-300" />
                 <span class="text-white text-sm hidden sm:block">
                     {{ isLoggedIn ? 'My Account' : 'Sign In' }}
@@ -43,11 +41,9 @@ function modalClose() {
 
     <!-- 模态框 -->
     <Transition name="fade">
-        <div 
-            v-if="isModalOpen"
+        <div v-if="isModalOpen"
             class="fixed inset-0 z-50 flex justify-center items-center px-4 bg-black/60 backdrop-blur-sm"
-            @click="modalClose"
-        >
+            @click="modalClose">
             <Transition name="scale-card" appear>
                 <div class="relative z-50" @click.stop>
                     <Form @logined="modalClose" v-if="!isLoggedIn" />
