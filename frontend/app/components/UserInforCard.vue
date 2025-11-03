@@ -64,11 +64,11 @@ const handleLogout = async () => {
             <!-- 统计信息 (可扩展) -->
             <div class="grid grid-cols-2 gap-4 mb-6">
                 <div class="p-4 bg-white/5 backdrop-blur-sm rounded-xl border-2 border-white/10">
-                    <div class="text-2xl font-bold text-white mb-1">0</div>
+                    <div class="text-2xl font-bold text-white mb-1">{{ userInfo.stats?.totalLinks ?? 0 }}</div>
                     <div class="text-sm text-gray-400">Total Links</div>
                 </div>
                 <div class="p-4 bg-white/5 backdrop-blur-sm rounded-xl border-2 border-white/10">
-                    <div class="text-2xl font-bold text-white mb-1">0</div>
+                    <div class="text-2xl font-bold text-white mb-1">{{ userInfo.stats?.totalClicks ?? 0 }}</div>
                     <div class="text-sm text-gray-400">Total Clicks</div>
                 </div>
             </div>

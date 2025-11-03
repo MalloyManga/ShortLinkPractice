@@ -63,7 +63,7 @@ export async function userVerifyWhenLogin(req, res, next) {
         }
 
         const { emailOrName, password } = result.data
-        const { userId, userEmail, userName, verifyResult } = await usersServices.userLogin(emailOrName, password)
+        const { userId, userEmail, userName, verifyResult, stats } = await usersServices.userLogin(emailOrName, password)
 
         if (!verifyResult) {
             throw new AppError('Invalid credentials', 401, 'UnauthorizedError')
@@ -88,7 +88,8 @@ export async function userVerifyWhenLogin(req, res, next) {
         return res.status(200).json({
             message: 'Successfully logged in!',
             userName,
-            userEmail
+            userEmail,
+            stats // 添加统计数据
         })
     } catch (error) {
         next(error)
@@ -116,6 +117,25 @@ export async function userLogout(req, res, next) {
         return res.status(200).json({
             message: 'Successfully logged out!'
         })
+    } catch (error) {
+        next(error)
+    }
+}
+
+/**
+ * Get current user profile with statistics
+ * @param {Request} req 
+ * @param {Response} res 
+ * @param {NextFunction} next
+ */
+export async function getUserProfile(req, res, next) {
+    try {
+        // req.userId 由 autoAuthMiddleware 设置
+        const userId = req.userId
+        const profile = await usersServices.getUserProfile(userId)
+
+        res.setHeader('Content-Type', 'application/json')
+        return res.status(200).send(JSON.stringify(profile, bigintHandler))
     } catch (error) {
         next(error)
     }

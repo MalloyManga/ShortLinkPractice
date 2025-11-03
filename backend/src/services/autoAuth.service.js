@@ -5,7 +5,7 @@ import { AppError } from "../utils/AppError.js"
 /**
  * Auto authenticate user by ID
  * @param {bigint} userId
- * @returns {Promise<{name: string, email: string}>}
+ * @returns {Promise<{name: string, email: string, stats: {totalLinks: number, totalClicks: number}}>}
  */
 export async function userAutoAuth(userId) {
     const user = await client.users.findUnique({
@@ -14,7 +14,12 @@ export async function userAutoAuth(userId) {
         },
         select: {
             name: true,
-            email: true
+            email: true,
+            links: {
+                select: {
+                    id: true
+                }
+            }
         }
     })
 
@@ -22,8 +27,15 @@ export async function userAutoAuth(userId) {
         throw new AppError('User not found', 404, 'NotFoundError')
     }
 
+    // 计算统计数据
+    const totalLinks = user.links.length
+
     return {
         name: user.name,
-        email: user.email
+        email: user.email,
+        stats: {
+            totalLinks,
+            totalClicks: 0 // 暂时为0
+        }
     }
 }

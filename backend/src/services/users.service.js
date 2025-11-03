@@ -44,6 +44,13 @@ export async function userLogin(emailOrName, password) {
                 { email: emailOrName },
                 { name: emailOrName }
             ]
+        },
+        include: {
+            links: {
+                select: {
+                    id: true
+                }
+            }
         }
     })
 
@@ -57,5 +64,57 @@ export async function userLogin(emailOrName, password) {
     const userEmail = user.email
     const verifyResult = await bcrypt.compare(password, user.password)
 
-    return { userId, userEmail, userName, verifyResult }
+    // 计算统计数据
+    const totalLinks = user.links.length
+
+    return { 
+        userId, 
+        userEmail, 
+        userName, 
+        verifyResult,
+        stats: {
+            totalLinks,
+            totalClicks: 0 // 暂时为0
+        }
+    }
+}
+
+/**
+ * Get user profile with statistics
+ * @param {bigint} userId 
+ */
+export async function getUserProfile(userId) {
+    const user = await client.users.findUnique({
+        where: {
+            id: userId // userId 已经是 BigInt 类型，不需要再转换
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            links: {
+                select: {
+                    id: true
+                }
+            }
+        }
+    })
+
+    if (!user) {
+        throw new AppError('User not found', 404, 'NotFoundError')
+    }
+
+    // 计算统计数据
+    const totalLinks = user.links.length
+    // TODO: 如果需要 Total Clicks，需要在 Links 表添加 clicks 字段
+
+    return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        stats: {
+            totalLinks,
+            totalClicks: 0 // 暂时为0，等添加点击统计功能
+        }
+    }
 }

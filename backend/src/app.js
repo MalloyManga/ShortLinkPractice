@@ -5,7 +5,7 @@ import usersRoute from './routes/users.route.js'
 import linksRoute from './routes/links.route.js'
 import autoAuthRoute from './routes/autoAuth.route.js'
 import { authMiddleware } from './middleware/authMiddleware.js'
-import { autoAuthMiddlware } from './middleware/autoAuthMiddlware.js'
+import { autoAuthMiddleware } from './middleware/autoAuthMiddleware.js'
 import { errorHandleMiddleware } from './middleware/errorHandleMiddleware.js'
 import { requestLogger } from './middleware/requestLogger.js'
 import { rateLimit } from 'express-rate-limit'
@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Routes
 app.use('/users', usersRoute)
-app.use('/auto-auth', autoAuthMiddlware, autoAuthRoute)
+app.use('/auto-auth', autoAuthMiddleware, autoAuthRoute)
 
 // Protected routes
 app.use(authMiddleware)

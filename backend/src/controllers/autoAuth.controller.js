@@ -8,9 +8,10 @@ import * as usersServices from '../services/autoAuth.service.js'
  */
 export async function userAutoAuth(req, res) {
     const userId = req.userId
-    const { name, email } = await usersServices.userAutoAuth(userId)
+    const { name, email, stats } = await usersServices.userAutoAuth(userId)
     return res.status(200).json({
         name,
-        email
+        email,
+        stats
     })
 }

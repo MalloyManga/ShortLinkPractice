@@ -39,7 +39,8 @@ async function handleSignIn() {
         if (useSignInData.value) {
             setUserInfo({
                 name: useSignInData.value.userName,
-                email: useSignInData.value.userEmail
+                email: useSignInData.value.userEmail,
+                stats: useSignInData.value.stats
             })
         }
         setLoggedIn()

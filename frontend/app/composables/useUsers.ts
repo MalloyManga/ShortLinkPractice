@@ -14,6 +14,10 @@ interface SignInResponse {
     message: string
     userName: string
     userEmail: string
+    stats: {
+        totalLinks: number
+        totalClicks: number
+    }
 }
 
 export const useSignUp = () => {
@@ -72,5 +76,34 @@ export const useSignOut = () => {
         data,
         status,
         error
+    }
+}
+
+interface UserProfile {
+    id: string
+    name: string
+    email: string
+    stats: {
+        totalLinks: number
+        totalClicks: number
+    }
+}
+
+export const useUserProfile = () => {
+    const { data, status, error, execute, refresh } = useFetch<UserProfile>('http://localhost:3000/users/profile', {
+        method: 'GET',
+        immediate: false,
+        watch: false,
+        credentials: 'include' // 需要发送 cookie
+    })
+    const getUserProfile = async () => {
+        await execute()
+    }
+    return {
+        getUserProfile,
+        profile: data,
+        status,
+        error,
+        refresh
     }
 }
