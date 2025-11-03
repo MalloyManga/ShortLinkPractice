@@ -15,6 +15,7 @@ const { setLoggedIn } = useAuth()
 const { setUserInfo } = useUserInfo()
 const { signUp, data: useSignUpData, status: useSignUpStatus, error: useSignUpError } = useSignUp()
 const { signIn, data: useSignInData, status: useSignInStatus, error: useSignInError } = useSignIn()
+const { success } = useToast()
 
 const emit = defineEmits<{
     logined: []
@@ -27,7 +28,7 @@ const formTpChange = (isSwt2Checked: boolean) => {
 async function handleSignUp() {
     await signUp(signUpData)
     if (!useSignUpError.value) {
-        alert('Registration successful! Please sign in.')
+        success('Registration successful! Please sign in.')
         formTp.value = false
     }
 }

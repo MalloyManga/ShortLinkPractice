@@ -22,16 +22,14 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <button 
-        :type="btnType" 
-        @click="emit('btn2Click')" 
-        :disabled="isDisabled"
+    <button :type="btnType" @click="emit('btn2Click')" :disabled="isDisabled"
         :class="[btnStyle, isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:scale-105']"
-        class="relative w-full px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 overflow-hidden group disabled:hover:scale-100 disabled:hover:shadow-none"
-    >
+        class="relative w-full px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 overflow-hidden group disabled:hover:scale-100 disabled:hover:shadow-none">
         <!-- 光泽效果 -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-        
+        <div
+            class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700">
+        </div>
+
         <span class="relative z-10">{{ btnContent }}</span>
     </button>
 </template>

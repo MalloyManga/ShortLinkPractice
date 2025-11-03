@@ -257,4 +257,30 @@ const copyToClipboard = async (text: string) => {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* 自定义输入框滚动条 */
+input::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+input::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+input::-webkit-scrollbar-thumb {
+    background: rgba(147, 51, 234, 0.3);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+input::-webkit-scrollbar-thumb:hover {
+    background: rgba(147, 51, 234, 0.5);
+}
+
+/* Firefox */
+input {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(147, 51, 234, 0.3) transparent;
+}
 </style>

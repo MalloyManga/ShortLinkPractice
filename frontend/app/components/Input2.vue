@@ -15,19 +15,37 @@ const isFocused = ref(false)
 
 <template>
     <div class="relative w-full max-w-sm">
-        <input 
-            :type="iptType" 
-            :placeholder="iptPholder" 
-            v-model="iptValue"
-            @focus="isFocused = true"
+        <input :type="iptType" :placeholder="iptPholder" v-model="iptValue" @focus="isFocused = true"
             @blur="isFocused = false"
-            class="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border-2 rounded-xl outline-none text-white placeholder-gray-400 transition-all duration-300"
-            :class="isFocused ? 'border-purple-500 shadow-lg shadow-purple-500/20 bg-white/10' : 'border-white/10 hover:border-white/20'"
-        >
-        <!-- 底部渐变条 -->
-        <div 
-            class="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300"
-            :class="isFocused ? 'w-full' : 'w-0'"
-        ></div>
+            class="custom-input w-full px-4 py-3 bg-white/5 backdrop-blur-sm border-2 rounded-xl outline-none text-white placeholder-gray-400 transition-all duration-300"
+            :class="isFocused ? 'border-purple-500 shadow-lg shadow-purple-500/20 bg-white/10' : 'border-white/10 hover:border-white/20'">
     </div>
 </template>
+
+<style scoped>
+/* 自定义滚动条样式 */
+.custom-input::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.custom-input::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-input::-webkit-scrollbar-thumb {
+    background: rgba(147, 51, 234, 0.3);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+.custom-input::-webkit-scrollbar-thumb:hover {
+    background: rgba(147, 51, 234, 0.5);
+}
+
+/* Firefox */
+.custom-input {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(147, 51, 234, 0.3) transparent;
+}
+</style>
