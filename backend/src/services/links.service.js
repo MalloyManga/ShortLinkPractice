@@ -92,7 +92,7 @@ export async function createShortUrl(originUrl, code, userId) {
 }
 
 /**
- * Get origin link using short link
+ * Get origin link using short link and increment click counter
  * @param {string} shortLink
  */
 export async function getOriginLinkWithShortLink(shortLink) {
@@ -110,7 +110,21 @@ export async function getOriginLinkWithShortLink(shortLink) {
         throw new AppError('Short link not found!', 404, 'NotFoundError')
     }
 
-    console.log(`[Link Redirected] ${shortLink} -> ${linkObj.origin_link}`)
+    // 异步增加点击计数，不阻塞重定向
+    client.links.update({
+        where: {
+            short_link: shortLink
+        },
+        data: {
+            clicks: {
+                increment: 1
+            }
+        }
+    }).catch(error => {
+        console.error(`[Click Count Error] Failed to increment clicks for ${shortLink}:`, error)
+    })
+
+    console.log(`[Link Redirected] ${shortLink} -> ${linkObj.origin_link} (Clicks: ${linkObj.clicks + 1})`)
 
     return linkObj.origin_link
 }

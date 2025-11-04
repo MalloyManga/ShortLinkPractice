@@ -17,7 +17,8 @@ export async function userAutoAuth(userId) {
             email: true,
             links: {
                 select: {
-                    id: true
+                    id: true,
+                    clicks: true
                 }
             }
         }
@@ -29,13 +30,14 @@ export async function userAutoAuth(userId) {
 
     // 计算统计数据
     const totalLinks = user.links.length
+    const totalClicks = user.links.reduce((sum, link) => sum + link.clicks, 0)
 
     return {
         name: user.name,
         email: user.email,
         stats: {
             totalLinks,
-            totalClicks: 0 // 暂时为0
+            totalClicks
         }
     }
 }

@@ -48,7 +48,8 @@ export async function userLogin(emailOrName, password) {
         include: {
             links: {
                 select: {
-                    id: true
+                    id: true,
+                    clicks: true
                 }
             }
         }
@@ -66,6 +67,7 @@ export async function userLogin(emailOrName, password) {
 
     // 计算统计数据
     const totalLinks = user.links.length
+    const totalClicks = user.links.reduce((sum, link) => sum + link.clicks, 0)
 
     return { 
         userId, 
@@ -74,7 +76,7 @@ export async function userLogin(emailOrName, password) {
         verifyResult,
         stats: {
             totalLinks,
-            totalClicks: 0 // 暂时为0
+            totalClicks
         }
     }
 }
@@ -94,7 +96,8 @@ export async function getUserProfile(userId) {
             email: true,
             links: {
                 select: {
-                    id: true
+                    id: true,
+                    clicks: true
                 }
             }
         }
@@ -106,7 +109,7 @@ export async function getUserProfile(userId) {
 
     // 计算统计数据
     const totalLinks = user.links.length
-    // TODO: 如果需要 Total Clicks，需要在 Links 表添加 clicks 字段
+    const totalClicks = user.links.reduce((sum, link) => sum + link.clicks, 0)
 
     return {
         id: user.id,
@@ -114,7 +117,7 @@ export async function getUserProfile(userId) {
         email: user.email,
         stats: {
             totalLinks,
-            totalClicks: 0 // 暂时为0，等添加点击统计功能
+            totalClicks
         }
     }
 }
