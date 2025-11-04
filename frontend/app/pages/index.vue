@@ -10,6 +10,7 @@ const showSuccess = ref(false)
 
 const { setLinksData, data, status, error: linksError } = useLinks()
 const { isLoggedIn } = useAuth()
+const { success: successToast } = useToast()
 
 async function handleGetShortLink() {
     // 检查是否登录
@@ -57,6 +58,7 @@ const clearInputs = () => {
 const copyToClipboard = async (text: string) => {
     try {
         await navigator.clipboard.writeText(text)
+        successToast('Copied to clipboard!')
     } catch (e) {
         console.error('Failed to copy:', e)
     }
@@ -188,7 +190,8 @@ const copyToClipboard = async (text: string) => {
                             <div class="flex items-center gap-2 p-3 bg-white/5 rounded-lg">
                                 <code class="flex-1 text-white text-sm break-all">{{ data.shortLink }}</code>
                                 <button @click="() => { if (data) copyToClipboard(data.shortLink) }"
-                                    class="p-2 hover:bg-white/10 rounded-lg transition-colors" title="Copy again">
+                                    class="p-2 hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
+                                    title="Copy again">
                                     <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
