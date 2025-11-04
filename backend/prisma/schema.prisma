@@ -21,6 +21,7 @@ model Links {
   id          BigInt @id @default(autoincrement())
   origin_link String @unique
   short_link  String @unique
+  clicks      Int    @default(0) // Number of times the short link has been clicked
 
   host   Users  @relation(fields: [hostId], references: [id])
   hostId BigInt
