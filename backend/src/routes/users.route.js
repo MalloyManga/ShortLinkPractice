@@ -4,7 +4,8 @@ import {
     createUser,
     userVerifyWhenLogin,
     userLogout,
-    getUserProfile
+    getUserProfile,
+    updateUserProfile
 } from "../controllers/users.controller.js"
 import { autoAuthMiddleware } from "../middleware/autoAuthMiddleware.js"
 
@@ -22,5 +23,6 @@ router.route('/signout')
 // 需要认证的路由
 router.route('/profile')
     .get(autoAuthMiddleware, getUserProfile)
+    .put(autoAuthMiddleware, updateUserProfile)
 
 export default router

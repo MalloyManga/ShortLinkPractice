@@ -107,3 +107,40 @@ export const useUserProfile = () => {
         refresh
     }
 }
+
+interface UpdateProfileData {
+    currentPassword: string
+    name?: string
+    email?: string
+    newPassword?: string
+}
+
+interface UpdateProfileResponse {
+    message: string
+    user: {
+        id: string
+        name: string
+        email: string
+    }
+}
+
+export const useUpdateProfile = () => {
+    const updateDataForBody = ref<UpdateProfileData | null>(null)
+    const { data, status, error, execute } = useFetch<UpdateProfileResponse>('http://localhost:3000/users/profile', {
+        method: 'PUT',
+        immediate: false,
+        watch: false,
+        body: updateDataForBody,
+        credentials: 'include' // 需要发送 cookie
+    })
+    const updateProfile = async (updateData: UpdateProfileData) => {
+        updateDataForBody.value = updateData
+        await execute()
+    }
+    return {
+        updateProfile,
+        data,
+        status,
+        error
+    }
+}

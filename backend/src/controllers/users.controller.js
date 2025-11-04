@@ -4,7 +4,7 @@ import * as usersServices from '../services/users.service.js'
 import { AppError } from '../utils/AppError.js'
 import bigintHandler from '../utils/bigintHandler.js'
 import { generateToken } from '../utils/jwtHelper.js'
-import { UserSchema, LoginUserSchema } from '../schemas/user.schema.js'
+import { UserSchema, LoginUserSchema, UpdateUserSchema } from '../schemas/user.schema.js'
 
 
 /**
@@ -136,6 +136,44 @@ export async function getUserProfile(req, res, next) {
 
         res.setHeader('Content-Type', 'application/json')
         return res.status(200).send(JSON.stringify(profile, bigintHandler))
+    } catch (error) {
+        next(error)
+    }
+}
+
+/**
+ * Update user profile
+ * @param {Request} req 
+ * @param {Response} res 
+ * @param {NextFunction} next
+ */
+export async function updateUserProfile(req, res, next) {
+    try {
+        // 验证请求数据
+        const result = UpdateUserSchema.safeParse(req.body)
+
+        if (!result.success) {
+            const errorMessage = result.error.issues[0].message
+            throw new AppError(errorMessage, 400, 'ValidationError')
+        }
+
+        const userId = req.userId
+        const { currentPassword, name, email, newPassword } = result.data
+
+        // 调用 service 更新用户信息
+        const updatedUser = await usersServices.updateUserProfile(userId, currentPassword, {
+            name,
+            email,
+            newPassword
+        })
+
+        console.log(`[Profile Updated] User ID: ${userId}`)
+
+        res.setHeader('Content-Type', 'application/json')
+        return res.status(200).send(JSON.stringify({
+            message: 'Profile updated successfully!',
+            user: updatedUser
+        }, bigintHandler))
     } catch (error) {
         next(error)
     }

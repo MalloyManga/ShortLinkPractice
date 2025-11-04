@@ -1,19 +1,38 @@
 <!-- UserInforCard.vue -->
 <script setup lang="ts">
-const { userInfo } = useUserInfo()
+const { userInfo, setUserInfo } = useUserInfo()
 const { setLoggedOut } = useAuth()
 const { signOut } = useSignOut()
+const { getUserProfile, profile, status } = useUserProfile()
 const { success } = useToast()
 
 const emit = defineEmits<{
     close: []
 }>()
 
+const showEditModal = ref(false)
+
 const handleLogout = async () => {
     await signOut()
     setLoggedOut()
     success('Successfully logged out!')
     emit('close')
+}
+
+const handleEditProfile = () => {
+    showEditModal.value = true
+}
+
+const handleProfileUpdateSuccess = async () => {
+    // 刷新用户信息
+    await getUserProfile()
+    if (status.value === 'success' && profile.value) {
+        setUserInfo({
+            name: profile.value.name,
+            email: profile.value.email,
+            stats: profile.value.stats
+        })
+    }
 }
 </script>
 
@@ -74,10 +93,19 @@ const handleLogout = async () => {
             </div>
 
             <!-- 操作按钮 -->
-            <button @click="handleLogout"
-                class="w-full px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/50">
-                Sign Out
-            </button>
+            <div class="space-y-3">
+                <button @click="handleEditProfile"
+                    class="w-full px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
+                    Edit Profile
+                </button>
+                <button @click="handleLogout"
+                    class="w-full px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/50">
+                    Sign Out
+                </button>
+            </div>
         </div>
     </div>
+
+    <!-- Edit Profile Modal -->
+    <EditProfileModal v-model="showEditModal" @success="handleProfileUpdateSuccess" />
 </template>
