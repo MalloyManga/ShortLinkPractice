@@ -30,9 +30,9 @@ function modalClose() {
 
             <!-- 用户按钮 -->
             <button type="button" @click="modalOpen"
-                class="glass-effect px-4 py-2 rounded-xl flex items-center space-x-2 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20 cursor-pointer">
+                class="glass-effect px-4 py-2 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20 cursor-pointer">
                 <IconUser :class="userStatus" class="w-6 h-6 transition-colors duration-300" />
-                <span class="text-white text-sm hidden sm:block">
+                <span class="text-white text-sm hidden sm:block sm:ml-2">
                     {{ isLoggedIn ? 'My Account' : 'Sign In' }}
                 </span>
             </button>
