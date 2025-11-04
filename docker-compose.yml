@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: shortlink-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: shortlink
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: shortlink
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - shortlink-network
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: shortlink-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://shortlink:changeme@postgres:5432/shortlink?schema=public
+      JWT_SECRET: your-super-secret-jwt-key-change-this-in-production
+      PORT: 3000
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - shortlink-network
+    command: sh -c "npx prisma migrate deploy && node src/server.js"
+
+  # Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: shortlink-frontend
+    restart: unless-stopped
+    environment:
+      NUXT_PUBLIC_API_URL: http://localhost:3000
+      NODE_ENV: production
+    ports:
+      - "3001:3001"
+    depends_on:
+      - backend
+    networks:
+      - shortlink-network
+
+volumes:
+  postgres_data:
+
+networks:
+  shortlink-network:
+    driver: bridge

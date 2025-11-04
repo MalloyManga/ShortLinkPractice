@@ -1,7 +1,27 @@
 {
-  "name": "nuxt-app",
+  "name": "shortlink-frontend",
+  "version": "1.0.0",
+  "description": "Frontend UI for ShortLink - A modern URL shortener with beautiful glassmorphism design",
+  "license": "MIT",
+  "author": "MalloyManga",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MalloyManga/ShortLinkPractice.git"
+  },
+  "keywords": [
+    "url-shortener",
+    "nuxt",
+    "vue",
+    "tailwindcss",
+    "typescript",
+    "glassmorphism"
+  ],
   "type": "module",
-  "private": true,
+  "private": false,
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
